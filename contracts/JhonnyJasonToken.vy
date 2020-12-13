@@ -1,6 +1,6 @@
 # @version ^0.2.8
 
-INITIAL_MINTABLE_PRO_ETH: constant(uint256) = 6666
+INITIAL_MINTABLE_PRO_ETH: constant(uint256) = 666
 INITIAL_MINT_CEILING: constant(uint256) = 100000000000000000000000
 
 DECIMALS: constant(uint256) = 18
@@ -93,71 +93,68 @@ def goBrrr(_rrr: uint256) -> bool:
 @external
 @payable
 def mint() -> bool:
-    _value: uint256 = msg.value * self.mintableProETH
+    _amount_wei: uint256 = msg.value * self.mintableProETH
 
-    self.totalSupply += _value
-    assert self.mintCeiling >= self.totalSupply + _value
-    
-    # assert self.mintCeiling >= self.totalSupply + _value
-    # self.totalSupply += _value
-    self.balanceOf[msg.sender] += _value
+    self.totalSupply += _amount_wei
+    assert self.mintCeiling >= self.totalSupply + _amount_wei    
+    self.balanceOf[msg.sender] += _amount_wei
 
     send(self.owner, msg.value)
 
-    log Transfer(self, msg.sender, _value)
+    log Transfer(self, msg.sender, _amount_wei)
     log Payment(msg.value, msg.sender)
     return True
 
 @external
-def burn(_value: uint256) -> bool:
-    self.balanceOf[msg.sender] -= _value
-    self.totalSupply -= _value
+def burn(_amount_wei: uint256) -> bool:
+    self.balanceOf[msg.sender] -= _amount_wei
+    self.totalSupply -= _amount_wei
 
-    log Transfer(msg.sender, self, _value)
+    log Transfer(msg.sender, self, _amount_wei)
     return True
 
 ############################################################
 #region ERC20Functions
 @external
-def transfer(_to: address, _value: uint256) -> bool:
-    self.balanceOf[msg.sender] -= _value
-    self.balanceOf[_to] += _value
+def transfer(_to: address, _amount_wei: uint256) -> bool:
+    self.balanceOf[msg.sender] -= _amount_wei
+    self.balanceOf[_to] += _amount_wei
 
-    log Transfer(msg.sender, _to, _value)
+    log Transfer(msg.sender, _to, _amount_wei)
     return True
 
 @external
-def approve(_spender: address, _value: uint256) -> bool:
-    (self.allowances[msg.sender])[_spender] = _value
-    log Approval(msg.sender, _spender, _value)
+def approve(_spender: address, _amount_wei: uint256) -> bool:
+    (self.allowances[msg.sender])[_spender] = _amount_wei
+    log Approval(msg.sender, _spender, _amount_wei)
     return True
 
 @external
-def transferFrom(_from: address, _to: address, _value: uint256) -> bool:
-    (self.allowances[_from])[msg.sender] -= _value
+def transferFrom(_from: address, _to: address, _amount_wei: uint256) -> bool:
+    (self.allowances[_from])[msg.sender] -= _amount_wei
 
-    self.balanceOf[_from] -= _value
-    self.balanceOf[_to] += _value
+    self.balanceOf[_from] -= _amount_wei
+    self.balanceOf[_to] += _amount_wei
 
-    log Transfer(_from, _to, _value)
+    log Transfer(_from, _to, _amount_wei)
     return True
 
 #endregion
 
 ############################################################
 @external
-def increaseAllowance(_spender: address, _value: uint256) -> bool:
-    (self.allowances[msg.sender])[_spender] += _value
+def increaseAllowance(_spender: address, _amount_wei: uint256) -> bool:
+    (self.allowances[msg.sender])[_spender] += _amount_wei
     
     log Approval(msg.sender, _spender, (self.allowances[msg.sender])[_spender])
     return True
 
 @external
-def decreaseAllowance(_spender: address, _value: uint256) -> bool:
-    if (self.allowances[msg.sender])[_spender] < _value:
+def decreaseAllowance(_spender: address, _amount_wei: uint256) -> bool:
+    if (self.allowances[msg.sender])[_spender] < _amount_wei:
         (self.allowances[msg.sender])[_spender] = 0
     else:
-        (self.allowances[msg.sender])[_spender] -= _value
+        (self.allowances[msg.sender])[_spender] -= _amount_wei
 
     log Approval(msg.sender, _spender, (self.allowances[msg.sender])[_spender])
     return True
@@ -198,13 +195,13 @@ def allowance(_owner: address, _spender: address) -> uint256:
 event Transfer:
     _from: indexed(address)
     _to: indexed(address)
-    _value: uint256
+    _amount_wei: uint256
 
 event Approval:
     _owner: indexed(address)
     _spender: indexed(address)
-    _value: uint256
+    _amount_wei: uint256
 
 event Payment:
-    _value: uint256
+    _amount_wei: uint256
     _sender: indexed(address)

@@ -19,7 +19,7 @@ contract("JhonnyJasonToken", (accounts) => {
         assert.equal(symbol, "JJT", "The symbol was not JJT.")
     })
 
-    it("...have a name of The JhonnyJason Token.", async () => {
+    it("...have a name of 'JhonnyJason Token'.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         const name = await jjt.name()
 
@@ -159,7 +159,7 @@ contract("JhonnyJasonToken", (accounts) => {
     })
 
 
-    it("...have burned 1 JJT.", async () => {
+    it("...have burned 1wei of JJT.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const account = accounts[3]
@@ -179,7 +179,7 @@ contract("JhonnyJasonToken", (accounts) => {
         assert.equal(totalSupply, desiredSupply, "The totalSupply was not correctly adjusted.")
     })
 
-    it("...have burned 1 JJT a second time.", async () => {
+    it("...have burned 1wei of JJT a second time.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const account = accounts[3]
@@ -200,7 +200,7 @@ contract("JhonnyJasonToken", (accounts) => {
     })
 
     
-    it("...have transferred 1 JJT to recevier.", async () => {
+    it("...have transferred 1wei of JJT to recevier.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const sender = accounts[3]
@@ -223,7 +223,7 @@ contract("JhonnyJasonToken", (accounts) => {
         assert.equal(balanceReceiver, desiredBalanceReceiver, "Balance of Receiver did not change Correctly.")
     })
 
-    it("...have transferred 1 JJT to recevier a second time.", async () => {
+    it("...have transferred 1wei of JJT to recevier a second time.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const sender = accounts[3]
@@ -245,7 +245,7 @@ contract("JhonnyJasonToken", (accounts) => {
         assert.equal(balanceReceiver, desiredBalanceReceiver, "Balance of Receiver did not change Correctly.")
     })
     
-    it("...have approved 1 JJT to be spend by accounts[5].", async () => {
+    it("...have approved 1wei of JJT to be spend by accounts[5].", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const allower = accounts[3]
@@ -262,7 +262,7 @@ contract("JhonnyJasonToken", (accounts) => {
 
     })
 
-    it("... accounts[5] could spend 1 JJT on behalf of accounts[3].", async () => {
+    it("... accounts[5] could spend 1wei of JJT on behalf of accounts[3].", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const allower = accounts[3]
@@ -293,7 +293,7 @@ contract("JhonnyJasonToken", (accounts) => {
 
     })
 
-    it("...have increasedAllowance by 10 JJT to be spend by accounts[5] a second time.", async () => {
+    it("...have increasedAllowance by 10wei of JJT to be spend by accounts[5] a second time.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const allower = accounts[3]
@@ -312,7 +312,7 @@ contract("JhonnyJasonToken", (accounts) => {
 
     })
 
-    it("... accounts[5] could spend 5 JJT two times on behalf of accounts[3] a second time.", async () => {
+    it("... accounts[5] could spend 5wei of JJT two times on behalf of accounts[3] a second time.", async () => {
         const jjt = await JhonnyJasonToken.deployed()
         
         const allower = accounts[3]
