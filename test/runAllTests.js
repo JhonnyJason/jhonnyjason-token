@@ -567,7 +567,7 @@ contract("JhonnyJasonToken", (accounts) => {
         const toAllow = prevBalanceAllower + 1n
         console.log("balance: " + prevBalanceAllower + " < " + "approved: " + toAllow)
 
-        const result = await jjt.approve(sender, toAllow, { from: allower})
+        const result = await jjt.approve(sender, toAllow.toString(), { from: allower})
         console.log("approve gas: "+ result.receipt.gasUsed)
 
         try { await jjt.transferFrom(allower, receiver, toAllow, { from: sender }) } catch(error) {
